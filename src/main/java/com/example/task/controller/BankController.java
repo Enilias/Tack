@@ -1,7 +1,7 @@
 package com.example.task.controller;
 
 
-import com.example.task.data.model.Bank;
+import com.example.task.data.model.dto.PaymentResponse;
 import com.example.task.service.BankService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,17 @@ public class BankController {
     private final BankService bankService;
 
     @GetMapping("/payment/{shop}/{amount}")
-    public ResponseEntity<Bank> payment(@PathVariable("shop") String shop, @PathVariable("amount") BigDecimal amount) {
+    public ResponseEntity<PaymentResponse> payment(@PathVariable("shop") String shop, @PathVariable("amount") BigDecimal amount) {
         return ResponseEntity.ok(bankService.payment(shop, amount));
+    }
+
+    @GetMapping("/bankAccountOfEMoney")
+    public ResponseEntity<PaymentResponse> getBankAccountOfEMoney() {
+        return ResponseEntity.ok(bankService.getBankAccountOfEMoney());
+    }
+
+    @GetMapping("/money")
+    public ResponseEntity<PaymentResponse> getMoney() {
+        return ResponseEntity.ok(bankService.getMoney());
     }
 }
